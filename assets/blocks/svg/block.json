@@ -1,0 +1,14 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "utopian/svg",
+	"title": "SVG",
+	"supports": {
+		"align": ["full"]
+	},
+	"category": "Utopian",
+	"attributes": {
+		"svgURL": { "type": "string" }
+	},
+	"editorScript": "file:./svg.js"
+}

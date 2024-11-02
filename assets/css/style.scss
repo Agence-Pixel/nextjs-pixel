@@ -1,0 +1,68 @@
+/* 3rd party packages */
+@import url('https://fonts.googleapis.com/css2?family=Questrial&family=Poppins&display=swap');
+@import 'modern-normalize.min.css';
+
+/* Document
+   ========================================================================== */
+
+/**
+ * 1. Correct the line height in all browsers.
+ * 2. Prevent adjustments of font size after orientation changes in iOS.
+ */
+
+html {
+	visibility: hidden;
+	font-size: 16px;
+}
+
+@media screen and (min-width: 960px) {
+	button.menu-toggle {
+		display: none;
+	}
+}
+
+@media screen and (min-width: 1000px) {
+	html {
+		/* font-size: calc([minimum size] + ([maximum size] - [minimum size]) * ((100vw - [minimum viewport width]) / ([maximum viewport width] - [minimum viewport width]))); */
+		font-size: calc(16px + 4 * ((100vw - 1000px) / 700));
+	}
+}
+
+@media screen and (min-width: 1700px) {
+	html {
+		font-size: 25px;
+	}
+}
+
+/*
+
+.site-branding p {
+	position: absolute;
+	left: -9999px;
+	opacity: 0;
+}
+
+#site-navigation .menu > ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: -webkit-box;
+	display: -moz-box;
+	display: -ms-flexbox; 
+	display: -webkit-flex;
+	display: flex;
+	height: 100%;
+	justify-content: flex-end;
+	align-items: center;
+}
+
+button.menu-toggle {
+	background: transparent;
+	color: #fff;
+	font-size: 2.4em;
+	text-align: right;
+	border: none;
+	padding: 0 1.166666666666667em;
+	margin-right: -1.166666666666667em;
+}
+*/

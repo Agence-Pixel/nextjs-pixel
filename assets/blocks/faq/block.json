@@ -1,0 +1,15 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "utopian/faq",
+	"title": "FAQ",
+	"supports": {
+		"align": ["full"]
+	},
+	"category": "Utopian",
+	"attributes": {
+		"text": { "type": "string", "default": "Accordion text" },
+		"open": { "type": "boolean", "default": false }
+	},
+	"editorScript": "file:./faq.js"
+}
