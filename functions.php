@@ -1,6 +1,5 @@
 <?php
-
-include_once get_template_directory() . '/theme-includes.php';
+require_once get_template_directory() . '/theme-includes.php';
 
 if (!function_exists('theme_setup')) {
 	/**
@@ -15,19 +14,28 @@ if (!function_exists('theme_setup')) {
 		add_theme_support('wp-block-styles');
 
 		// Enqueue editor styles.
-		add_editor_style(['assets/css/editor-style.css']);
+		add_editor_style(['assets/css/editor-style.css', 'build/style-index.css', 'build/index.css']);
 	}
 }
 
 add_action('after_setup_theme', 'theme_setup');
 
+function utopian_theme_scripts()
+{
+	wp_enqueue_style('style', get_stylesheet_directory_uri() . '/build/index.css', [], '1.3.9');
+	wp_enqueue_style('theme-style', get_stylesheet_directory_uri() . '/build/style-index.css', [], '1.3.9');
+	wp_enqueue_script('utopian', get_stylesheet_directory_uri() . '/build/index.js', [], '1.3.9', true);
+}
+
+add_action('wp_enqueue_scripts', 'utopian_theme_scripts');
+
 function be_gutenberg_scripts()
 {
 	wp_enqueue_script(
 		'utopian-editor',
-		get_stylesheet_directory_uri() . '/build/editor.js',
-		'1',
+		get_stylesheet_directory_uri() . '/build/js/editor.js',
 		array('wp-blocks', 'wp-dom'),
+		'1.1.1',
 		true
 	);
 }
@@ -46,83 +54,16 @@ class JSXBlock
 	{
 		$this->name = $name;
 		$this->location = "/build/blocks/{$name}/";
-		$this->data = $data;
-		$this->dataIsFunction = $dataIsFunction;
-		$this->renderCallback = $renderCallback;
-		$this->dependencies = $dependencies;
 		add_action('init', [$this, 'onInit']);
-		add_action('wp_enqueue_scripts', [$this, 'enqueueBlockFiles']);
-	}
-
-	function ourRenderCallback($attributes, $content)
-	{
-		ob_start();
-
-		require get_theme_file_path("/assets/blocks/{$this->name}/index.php");
-
-		return ob_get_clean();
 	}
 
 	function onInit()
 	{
-
-		if ($this->data) {
-			wp_localize_script($this->name, $this->name, $this->data);
-		}
-
-		$ourArgs = [];
-
-		if ($this->renderCallback) {
-			$ourArgs['render_callback'] = [$this, 'ourRenderCallback'];
-		}
-
-		register_block_type(__DIR__ . $this->location, $ourArgs);
-	}
-
-	function enqueueBlockFiles()
-	{
-		if ($this->renderCallback) {
-			if (has_block("utopian/{$this->name}")) {
-
-				$asset_file = include(__DIR__ . "{$this->location}frontend/index.asset.php");
-
-				if ($this->data) {
-					wp_register_script(
-						$this->name,
-						get_stylesheet_directory_uri() . "{$this->location}frontend/index.js",
-						$this->dependencies,
-						$asset_file['version'],
-						true
-					);
-
-					wp_localize_script($this->name, $this->name, $this->dataIsFunction ? call_user_func($this->data) : $this->data);
-
-					wp_enqueue_script(
-						$this->name
-					);
-				} else {
-					wp_enqueue_script(
-						$this->name,
-						get_stylesheet_directory_uri() . "{$this->location}frontend/index.js",
-						$this->dependencies,
-						$asset_file['version'],
-						true
-					);
-				}
-
-				wp_enqueue_style(
-					$this->name,
-					get_stylesheet_directory_uri() . "{$this->location}frontend/index.css",
-					[],
-					$asset_file['version']
-				);
-			}
-		}
+		register_block_type(__DIR__ . $this->location, []);
 	}
 }
 
-new JSXBlock('svg', true);
-new JSXBlock('faq', true);
+new JSXBlock('content2', true);
 
 if (function_exists('register_block_pattern_category')) {
 	register_block_pattern_category(

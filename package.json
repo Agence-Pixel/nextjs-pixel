@@ -4,14 +4,15 @@
 	"description": "Starter Theme for Headless WordPress",
 	"main": "index.js",
 	"scripts": {
-		"start": "wp-scripts start --webpack-src-dir=assets",
-		"build": "wp-scripts build --webpack-src-dir=assets",
+		"start": "wp-scripts start --webpack-src-dir=assets --webpack-copy-php",
+		"build": "wp-scripts build --webpack-src-dir=assets --webpack-copy-php",
 		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"keywords": [],
 	"author": "Utopian",
 	"license": "ISC",
 	"dependencies": {
-		"@wordpress/scripts": "*"
+		"@wordpress/scripts": "*",
+		"modern-normalize": "^3.0.1"
 	}
 }

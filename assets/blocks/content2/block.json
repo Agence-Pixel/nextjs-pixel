@@ -1,0 +1,14 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 2,
+	"name": "acf/content2",
+	"title": "Content 2",
+	"supports": {
+		"align": ["full"]
+	},
+	"category": "Utopian",
+	"acf": {
+		"mode": "preview",
+		"renderTemplate": "render.php"
+	}
+}
